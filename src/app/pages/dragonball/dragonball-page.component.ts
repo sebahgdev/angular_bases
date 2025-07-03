@@ -15,14 +15,13 @@ interface Character {
 
 export class DragonballPageComponent {
 
-  name = signal('Goh');
-  power = signal(1000);
+  name = signal('');
+  power = signal(0);
 
   characters = signal<Character[]>([
     { id: 1, name: 'Goku', power: 9001 },
-    { id: 2, name: 'Veg', power: 8001 },
-    { id: 3, name: 'pet', power: 3001 },
-    { id: 4, name: 'yan', power: 500 },
+
+
   ]);
 
   powerClasses = computed(() => {
@@ -43,6 +42,14 @@ export class DragonballPageComponent {
       power: this.power()
     }
 
-    this.characters().push(newCharacter)
+    this.characters.update((list) => [...list, newCharacter])
+
+    /* this.characters().push(newCharacter) */
+    this.resetFields();
+  }
+
+  resetFields() {
+    this.name.set('');
+    this.power.set(0)
   }
 }
